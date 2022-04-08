@@ -1,45 +1,34 @@
 class Producto {
-    constructor(nombre, precio, stock) {
-        this.nombre  = nombre;
-        this.precio  = precio;
-        this.stock   = stock;
-    }
-    vender() {
-        this.stock = this.stock - 1;
-    }
-    agregar() {
-        this.stock = this.stock + 1;
-    }
-    sumaIva() {
-        this.precio = this.precio * 1.21;
-    }
-    descuento() {
-        this.precio = this.precio - (this.precio * 0.10);
+    constructor(nombre, precio, stock, valorConIva, valorContado) {
+        this.nombre       = nombre;
+        this.precio       = precio;
+        this.stock        = stock;
+        this.valorConIva  = valorConIva;
+        this.valorContado = valorContado;
     }
 }
 
-const micro = new Producto("Micro Intel Core i3", "90000", parseInt("5"));
-const memoria = new Producto("Memoria DDR4 8GB ", "8000", parseInt("9") );
+let productos = [];
 
+let nombre = prompt("Ingrese el nombre del producto");
 
-console.log("El stock actual de ", micro.nombre," es de ", micro.stock, " unidades");
+while (nombre != "salir") {
+    let valor = parseInt ( prompt("Ingrese el valor"));
+    let cantidad = parseInt ( prompt("Ingrese el stock"));
+    let valorConIva = Math.ceil ( valor * 1.21 ) ;
+    let valorContado = Math.ceil ( valorConIva / 1.10 );
+    
+    productos.push(new Producto(nombre, valor, cantidad, valorConIva, valorContado));
 
-micro.agregar();
+    nombre = prompt("Ingrese el nombre del producto, Para terminar escriba salir");
+}
 
-console.log("El stock actual de ", micro.nombre," es de ", micro.stock, " unidades");
+console.log(productos);
 
-console.log("El precio de ", micro.nombre, " sin iva es $", micro.precio); 
+const nombres = productos.map((el) => el.nombre)
 
-micro.sumaIva();
+console.log(nombres)
 
-console.log("El precio de ", micro.nombre, " con iva es $", micro.precio);
+const filtrado = productos.filter((el) => el.precio < 1000)
 
-micro.descuento();
-
-console.log("El precio con descuento de ", micro.nombre, " es $", micro.precio); 
-
-console.log("El stock actual de ", memoria.nombre," es de ", memoria.stock, " unidades");
-
-memoria.vender();
-
-console.log("El stock actual de ", memoria.nombre," es de ", memoria.stock, " unidades");
+console.log(filtrado)
