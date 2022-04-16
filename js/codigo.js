@@ -1,3 +1,16 @@
+function sumarIva(precio){
+    return Math.ceil ( precio * 1.21 );
+}
+
+function descuento(precio){
+    return Math.ceil ( (sumarIva(precio)) / 1.10 );
+}
+
+//declaracion del array
+let productos = [];
+
+function agregarElemento(){
+
 class Producto {
     constructor(nombre, precio, stock, valorConIva, valorContado) {
         this.nombre       = nombre;
@@ -5,30 +18,55 @@ class Producto {
         this.stock        = stock;
         this.valorConIva  = valorConIva;
         this.valorContado = valorContado;
+        this.checked      = false;
     }
 }
 
-let productos = [];
-
 let nombre = prompt("Ingrese el nombre del producto");
 
-while (nombre != "salir") {
+while (nombre != "fin") {
     let valor = parseInt ( prompt("Ingrese el valor"));
     let cantidad = parseInt ( prompt("Ingrese el stock"));
-    let valorConIva = Math.ceil ( valor * 1.21 ) ;
-    let valorContado = Math.ceil ( valorConIva / 1.10 );
+    let valorConIva = sumarIva(valor) ;
+    let valorContado = descuento(valor);
     
     productos.push(new Producto(nombre, valor, cantidad, valorConIva, valorContado));
 
-    nombre = prompt("Ingrese el nombre del producto, Para terminar escriba salir");
+    nombre = prompt("Ingrese el nombre del producto, Para terminar escriba fin");
 }
 
-console.log(productos);
+let tablaProds = document.getElementById("prods")
 
-const nombres = productos.map((el) => el.nombre)
+for (const producto of productos) {
 
-console.log(nombres)
+let filas = document.createElement("tr")
 
-const filtrado = productos.filter((el) => el.precio < 1000)
+filas.innerHTML = `
+                    <td><div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </div></td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.stock}</td>
+                    <td>$ ${producto.precio}</td>
+                    <td>$ ${producto.valorConIva}</td>
+                    <td>$ ${producto.valorContado}</td>
+                    `;
 
-console.log(filtrado)
+tablaProds.appendChild(filas);
+} //cierre del for
+
+} //final de la funcion agregar elemento
+
+function eliminarElemento(){
+
+
+
+}
+
+document.getElementById("agregar").onclick = function (){
+    agregarElemento();
+}
+
+document.getElementById("eliminar").onclick = function (){
+    eliminarElemento()
+}
