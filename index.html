@@ -11,29 +11,39 @@
 </head>
 <body>
 
-<h1>Listado de Productos</h1>
-<div>
+<header>
+    <div class="cabecera">
+        <h1>Sistema de Alta, Baja y Modificación de productos</h1>
+    </div>
+</header>
+<div class="titulo">
+    <h2>Listado de Productos</h2>
+</div>
+
+<div class="contenedor">
     <table class="table table-hover">
         <thead>
-            <tr>
-                <td></td>
+            <tr class="titulos-tabla">
+                <td>ID</td>
                 <td>Nombre</td>
                 <td>Stock</td>
                 <td>Precio S/IVA</td>
                 <td>Precio Lista</td>
                 <td>Precio Contado</td>
+                <td></td>
+                <td></td>
             </tr>            
         </thead>
         <tbody id="prods">
 
         </tbody>
     </table>
+
+<button id="agregar" type="button" class="boton btn btn-secondary btn-sm">Agregar Productos</button>
+
 </div>
 
-<button id="agregar" type="button" class="btn btn-secondary btn-sm">Agregar Productos</button>
-<button id="eliminar" type="button" class="btn btn-secondary btn-sm">Eliminar</button>
-
-
+    <script src="./js/funciones.js"></script>
     <script src="./js/codigo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

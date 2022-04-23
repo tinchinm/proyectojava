@@ -1,0 +1,22 @@
+.cabecera{
+    text-align: center;
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.contenedor{
+    padding: 2rem;
+    display: flexbox;
+}
+
+.titulo{
+    padding: 1rem;
+}
+
+.boton{
+    padding: 3rem;
+}
+
+.titulos-tabla{
+    font-weight: bold;
+}

@@ -1,72 +1,43 @@
-function sumarIva(precio){
-    return Math.ceil ( precio * 1.21 );
-}
-
-function descuento(precio){
-    return Math.ceil ( (sumarIva(precio)) / 1.10 );
-}
-
 //declaracion del array
+
 let productos = [];
 
-function agregarElemento(){
+if(localStorage.length === 0){
 
-class Producto {
-    constructor(nombre, precio, stock, valorConIva, valorContado) {
-        this.nombre       = nombre;
-        this.precio       = precio;
-        this.stock        = stock;
-        this.valorConIva  = valorConIva;
-        this.valorContado = valorContado;
-        this.checked      = false;
-    }
-}
+}else{
 
-let nombre = prompt("Ingrese el nombre del producto");
+//---------Parseado de datos con JSON desde local storage-------------
 
-while (nombre != "fin") {
-    let valor = parseInt ( prompt("Ingrese el valor"));
-    let cantidad = parseInt ( prompt("Ingrese el stock"));
-    let valorConIva = sumarIva(valor) ;
-    let valorContado = descuento(valor);
-    
-    productos.push(new Producto(nombre, valor, cantidad, valorConIva, valorContado));
+let listaProds = JSON.parse(localStorage.getItem('listaProductos'))
 
-    nombre = prompt("Ingrese el nombre del producto, Para terminar escriba fin");
-}
+//---------Acá distribuye los elementos en la tabla-----------------
 
 let tablaProds = document.getElementById("prods")
 
-for (const producto of productos) {
+for (const producto of listaProds) {
 
 let filas = document.createElement("tr")
 
 filas.innerHTML = `
-                    <td><div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    </div></td>
+                    <td>${producto.id}</td>
                     <td>${producto.nombre}</td>
                     <td>${producto.stock}</td>
                     <td>$ ${producto.precio}</td>
                     <td>$ ${producto.valorConIva}</td>
                     <td>$ ${producto.valorContado}</td>
+                    <td> <a href="#" id="editar" class="editar-elemento" data-id="${producto.id}" ><img src="./img/icons/edit.png" alt="editar" width="20px"></a></td>
+                    <td><button type="button" id="borrar" class="borrar-producto btn-close" aria-label="Close" data-id="${producto.id}" ></button> </td>
                     `;
 
 tablaProds.appendChild(filas);
-} //cierre del for
+}; //cierre del for
 
-} //final de la funcion agregar elemento
+}; //cierre del else
 
-function eliminarElemento(){
+//----------------Captura de botones y acciones----------------------------
 
+document.getElementById("agregar").onclick = function (){agregarElemento();};
 
+document.getElementById("prods").addEventListener("click", (e) => {eliminarProducto(e);});
 
-}
-
-document.getElementById("agregar").onclick = function (){
-    agregarElemento();
-}
-
-document.getElementById("eliminar").onclick = function (){
-    eliminarElemento()
-}
+/* document.getElementById("prods").addEventListener("click", (e) => {editarElemento(e);}); */
