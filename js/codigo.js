@@ -36,7 +36,7 @@ tablaProds.appendChild(filas);
 
 //----------------Captura de botones y acciones----------------------------
 
-document.getElementById("agregar").onclick = function (){agregarElemento();};
+document.getElementById("agregar").addEventListener("click", () => {agregarElemento();});
 
 document.getElementById("prods").addEventListener("click", (e) => {eliminarProducto(e);});
 

@@ -23,14 +23,14 @@ class Producto {
     }
 }
 
-if(localStorage.length === 0){
+//reemplazo del if por un operador ternario
+localStorage.length === 0 ?
 
-    listaMemoria = [];
+    listaMemoria = []
 
-}else{
+:
 
     listaMemoria = JSON.parse(localStorage.getItem('listaProductos'));
-}
 
 let id = generarId(listaMemoria.length);
 let nombre = prompt("Ingrese el nombre del producto");
@@ -45,9 +45,17 @@ listaMemoria.push(new Producto(id, nombre, valor, cantidad, valorConIva, valorCo
 
 localStorage.setItem('listaProductos', JSON.stringify(listaMemoria));
 
-alert("Producto agregado correctamente");
+Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Producto agregado correctamente',
+    showConfirmButton: false,
+    timer: 1500
+})
 
-location.reload()
+setTimeout(() => {
+    location.reload()
+}, 1600);
 
 } //final de la funcion agregar elemento
 
@@ -59,6 +67,13 @@ function eliminarProducto (e){
         product = e.target.parentElement.parentElement;
         productID = product.querySelector('button').getAttribute('data-id');
     }
+    Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Producto eliminado',
+        showConfirmButton: false,
+        timer: 1500
+    })
     eliminarProductoLocalStorage(productID);
     }
 
@@ -87,7 +102,13 @@ function modificarProducto(opcion, id){
 
     localStorage.setItem('listaProductos', JSON.stringify(productosLS));
 
-    alert("El nombre se modificó correctamente");
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El nombre se modificó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+    })
 
 }else if(opcion == 2){
         let stockProducto = prompt("Ingrese el nuevo stock");
@@ -96,7 +117,13 @@ function modificarProducto(opcion, id){
 
     localStorage.setItem('listaProductos', JSON.stringify(productosLS));
 
-    alert("El stock se modificó correctamente");
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El stock se modificó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+    })
 
 }else if(opcion == 3){
         let precioProducto = prompt("Ingrese el nuevo precio");
@@ -114,11 +141,19 @@ function modificarProducto(opcion, id){
 
         localStorage.setItem('listaProductos', JSON.stringify(productosLS));
 
-        alert("El precio se modificó correctamente");
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'El precio se modificó correctamente',
+            showConfirmButton: false,
+            timer: 1500
+        })
 
     }else{
 
     }
 
-    location.reload()
+    setTimeout(() => {
+        location.reload()
+    }, 1600);
 }
