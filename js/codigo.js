@@ -1,20 +1,14 @@
-//declaracion del array
+    let tablaProds = document.getElementById("prods")
 
-let productos = [];
+    //---------Trayendo los productos desde el JSON----------------------
 
-if(localStorage.length === 0){
-
-}else{
-
-//---------Parseado de datos con JSON desde local storage-------------
-
-let listaProds = JSON.parse(localStorage.getItem('listaProductos'))
+fetch("./bbdd/productos.json")
+    .then((res) => res.json())
+    .then((listaProds) => {
 
 //---------Acá distribuye los elementos en la tabla-----------------
 
-let tablaProds = document.getElementById("prods")
-
-for (const producto of listaProds) {
+listaProds.forEach((producto) => {
 
 let filas = document.createElement("tr")
 
@@ -30,9 +24,10 @@ filas.innerHTML = `
                     `;
 
 tablaProds.appendChild(filas);
-}; //cierre del for
 
-}; //cierre del else
+}); //cierre del for each
+
+}); //cierre del fetch
 
 //----------------Captura de botones y acciones----------------------------
 

@@ -1,0 +1,6 @@
+[
+    {"id": 1, "nombre": "Libro 1", "precio": 300, "stock": 2, "valorConIva": 363, "valorContado": 330},
+    {"id": 2, "nombre": "Libro 2", "precio": 200, "stock": 4, "valorConIva": 242, "valorContado": 220},
+    {"id": 3, "nombre": "Libro 3", "precio": 234, "stock": 6, "valorConIva": 284, "valorContado": 259},
+    {"id": 4, "nombre": "Libro 4", "precio": 334, "stock": 1, "valorConIva": 405, "valorContado": 369}
+]

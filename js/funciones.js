@@ -23,14 +23,11 @@ class Producto {
     }
 }
 
-//reemplazo del if por un operador ternario
-localStorage.length === 0 ?
+fetch("./bbdd/productos.json")
+    .then((res) => res.json())
+    .then((prods) => {
 
-    listaMemoria = []
-
-:
-
-    listaMemoria = JSON.parse(localStorage.getItem('listaProductos'));
+let listaMemoria = prods;
 
 let id = generarId(listaMemoria.length);
 let nombre = prompt("Ingrese el nombre del producto");
@@ -38,8 +35,6 @@ let valor = parseInt ( prompt("Ingrese el valor"));
 let cantidad = parseInt ( prompt("Ingrese el stock"));
 let valorConIva = sumarIva(valor) ;
 let valorContado = descuento(valor);
-
-productos.push(new Producto(id, nombre, valor, cantidad, valorConIva, valorContado));
 
 listaMemoria.push(new Producto(id, nombre, valor, cantidad, valorConIva, valorContado));
 
@@ -56,6 +51,8 @@ Swal.fire({
 setTimeout(() => {
     location.reload()
 }, 1600);
+
+}); //cierre del fetch
 
 } //final de la funcion agregar elemento
 
@@ -78,11 +75,18 @@ function eliminarProducto (e){
     }
 
 function eliminarProductoLocalStorage(productID){
-    let productosLS = JSON.parse(localStorage.getItem('listaProductos'));
+
+fetch("./bbdd/productos.json")
+    .then((res) => res.json())
+    .then((prods) => {
+
+let productosLS = prods;
 
 productosLS = productosLS.filter(elemento => elemento.id != productID);
 
 localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+
+}); //cierre del fetch
 }
 
 function editarElemento(e) {
@@ -94,7 +98,10 @@ function editarElemento(e) {
 }
 
 function modificarProducto(opcion, id){
-    let productosLS = JSON.parse(localStorage.getItem('listaProductos'));
+    fetch("./bbdd/productos.json")
+    .then((res) => res.json())
+    .then((prods) => {
+let productosLS = prods;
     if(opcion == 1){
         let nombreProducto = prompt("Ingrese el nuevo nombre");
         let elemento = productosLS.find(elemento => elemento.id = id);
@@ -156,4 +163,5 @@ function modificarProducto(opcion, id){
     setTimeout(() => {
         location.reload()
     }, 1600);
-}
+}); //cierre del fetch
+}; // final de funcion modificar producto
