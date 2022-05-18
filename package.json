@@ -1,0 +1,19 @@
+{
+  "name": "proyectojava",
+  "version": "1.0.0",
+  "description": "Proyecto Final Javascript",
+  "main": "codigo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinchinm/proyectojava.git"
+  },
+  "author": "Martin Marzialetti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tinchinm/proyectojava/issues"
+  },
+  "homepage": "https://github.com/tinchinm/proyectojava#readme"
+}

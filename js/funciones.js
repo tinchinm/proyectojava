@@ -59,14 +59,7 @@ setTimeout(() => {
 
 } //final de la funcion agregar elemento
 
-function eliminarProducto (e){
-    e.preventDefault();
-    let product, productID;
-    if(e.target.classList.contains('borrar-producto')){
-        e.target.parentElement.parentElement.remove();
-        product = e.target.parentElement.parentElement;
-        productID = product.querySelector('button').getAttribute('data-id');
-    }
+function eliminarProducto (productID){
     Swal.fire({
         position: 'center',
         icon: 'error',
@@ -80,24 +73,28 @@ function eliminarProducto (e){
 function eliminarProductoLocalStorage(productID){
     let productosLS = JSON.parse(localStorage.getItem('listaProductos'));
 
-productosLS = productosLS.filter(elemento => elemento.id != productID);
+    productosLS = productosLS.filter(elemento => elemento.id != productID);
 
-localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+    localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+
+    setTimeout(() => {
+        location.reload()
+    }, 1600);
 }
 
-function editarElemento(e) {
-        let produc = e.target.parentElement.parentElement;
-        let producID = produc.querySelector('a').getAttribute('data-id');
-        let opcion = prompt("Ingrese el item a editar 1- Nombre 2- Stock 3- Precio");
+function editarElemento(producID) {
+
+    let opcion = prompt("Ingrese el item a editar 1- Nombre 2- Stock 3- Precio");
 
     modificarProducto (opcion, producID)
+
 }
 
 function modificarProducto(opcion, id){
     let productosLS = JSON.parse(localStorage.getItem('listaProductos'));
     if(opcion == 1){
         let nombreProducto = prompt("Ingrese el nuevo nombre");
-        let elemento = productosLS.find(elemento => elemento.id = id);
+        let elemento = productosLS.find(elemento => elemento.id == id);
         elemento.nombre = nombreProducto;
 
     localStorage.setItem('listaProductos', JSON.stringify(productosLS));
@@ -110,44 +107,44 @@ function modificarProducto(opcion, id){
         timer: 1500
     })
 
-}else if(opcion == 2){
-        let stockProducto = prompt("Ingrese el nuevo stock");
-        let elemento = productosLS.find(elemento => elemento.id = id);
-        elemento.stock = stockProducto;
+    }else if(opcion == 2){
+            let stockProducto = prompt("Ingrese el nuevo stock");
+            let elemento = productosLS.find(elemento => elemento.id == id);
+            elemento.stock = stockProducto;
 
-    localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+            localStorage.setItem('listaProductos', JSON.stringify(productosLS));
 
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'El stock se modificó correctamente',
-        showConfirmButton: false,
-        timer: 1500
-    })
-
-}else if(opcion == 3){
-        let precioProducto = prompt("Ingrese el nuevo precio");
-        let precioConIva = sumarIva(precioProducto);
-        let precioDescuento = descuento(precioConIva);
-        
-        let elemento = productosLS.find(elemento => elemento.id = id);
-        elemento.precio = precioProducto;
-        
-        let elemento2 = productosLS.find(elemento2 => elemento2.id = id);
-        elemento2.valorConIva = precioConIva;
-        
-        let elemento3 = productosLS.find(elemento3 => elemento3.id = id);
-        elemento3.valorContado = precioDescuento;
-
-        localStorage.setItem('listaProductos', JSON.stringify(productosLS));
-
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'El precio se modificó correctamente',
-            showConfirmButton: false,
-            timer: 1500
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'El stock se modificó correctamente',
+                showConfirmButton: false,
+                timer: 1500
         })
+
+    }else if(opcion == 3){
+            let precioProducto = prompt("Ingrese el nuevo precio");
+            let precioConIva = sumarIva(precioProducto);
+            let precioDescuento = descuento(precioProducto);
+            
+            let elemento = productosLS.find(elemento => elemento.id == id);
+            elemento.precio = precioProducto;
+            
+            let elemento2 = productosLS.find(elemento2 => elemento2.id == id);
+            elemento2.valorConIva = precioConIva;
+            
+            let elemento3 = productosLS.find(elemento3 => elemento3.id == id);
+            elemento3.valorContado = precioDescuento;
+
+            localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'El precio se modificó correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
 
     }else{
 

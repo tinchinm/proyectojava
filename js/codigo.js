@@ -25,11 +25,16 @@ filas.innerHTML = `
                     <td>$ ${producto.precio}</td>
                     <td>$ ${producto.valorConIva}</td>
                     <td>$ ${producto.valorContado}</td>
-                    <td> <a href="#" id="editar" class="editar-elemento" data-id="${producto.id}" ><img src="./img/icons/edit.png" alt="editar" width="20px"></a></td>
-                    <td><button type="button" id="borrar" class="borrar-producto btn-close" aria-label="Close" data-id="${producto.id}" ></button> </td>
+                    <td id="editar${producto.id}"> <a href="#" "><img src="./img/icons/edit.png" alt="editar" width="20px"></a></td>
+                    <td id="borrar${producto.id}"><button type="button" class="borrar-producto btn-close" aria-label="Close"></button> </td>
                     `;
 
 tablaProds.appendChild(filas);
+
+document.getElementById(`editar${producto.id}`).addEventListener("click", () => {editarElemento(`${producto.id}`);});
+
+document.getElementById(`borrar${producto.id}`).addEventListener("click", () => {eliminarProducto(`${producto.id}`);});
+
 }; //cierre del for
 
 }; //cierre del else
@@ -37,7 +42,3 @@ tablaProds.appendChild(filas);
 //----------------Captura de botones y acciones----------------------------
 
 document.getElementById("agregar").addEventListener("click", () => {agregarElemento();});
-
-document.getElementById("prods").addEventListener("click", (e) => {eliminarProducto(e);});
-
-/* document.getElementById("prods").addEventListener("click", (e) => {editarElemento(e);}); */
