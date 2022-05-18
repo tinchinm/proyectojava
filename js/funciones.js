@@ -33,15 +33,49 @@ localStorage.length === 0 ?
     listaMemoria = JSON.parse(localStorage.getItem('listaProductos'));
 
 let id = generarId(listaMemoria.length);
-let nombre = prompt("Ingrese el nombre del producto");
-let valor = parseInt ( prompt("Ingrese el valor"));
-let cantidad = parseInt ( prompt("Ingrese el stock"));
-let valorConIva = sumarIva(valor) ;
-let valorContado = descuento(valor);
 
-productos.push(new Producto(id, nombre, valor, cantidad, valorConIva, valorContado));
 
-listaMemoria.push(new Producto(id, nombre, valor, cantidad, valorConIva, valorContado));
+(async () => {
+
+    const { value: nombre } = await Swal.fire({
+      title: "Ingrese el Nombre",
+      input: "text",
+      showCancelButton: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Por favor ingrese un nombre";
+        }
+      },
+    });
+
+    const { value: valor } = await Swal.fire({
+        title: "Ingrese el Precio",
+        input: "text",
+        showCancelButton: false,
+        inputValidator: (value) => {
+          if (!value) {
+            return "Por favor ingrese un valor";
+          }
+        },
+      });
+    
+    const { value: stock } = await Swal.fire({
+          title: "Ingrese el Stock",
+          input: "text",
+          showCancelButton: false,
+          inputValidator: (value) => {
+            if (!value) {
+              return "Por favor ingrese el stock";
+            }
+          },
+        });
+    
+    let valorConIva = sumarIva(valor) ;
+    let valorContado = descuento(valor);
+    
+productos.push(new Producto(id, nombre, valor, stock, valorConIva, valorContado));
+
+listaMemoria.push(new Producto(id, nombre, valor, stock, valorConIva, valorContado));
 
 localStorage.setItem('listaProductos', JSON.stringify(listaMemoria));
 
@@ -56,6 +90,8 @@ Swal.fire({
 setTimeout(() => {
     location.reload()
 }, 1600);
+
+})(); //cierre del async
 
 } //final de la funcion agregar elemento
 
@@ -84,31 +120,75 @@ function eliminarProductoLocalStorage(productID){
 
 function editarElemento(producID) {
 
-    let opcion = prompt("Ingrese el item a editar 1- Nombre 2- Stock 3- Precio");
+    (async () => {
 
-    modificarProducto (opcion, producID)
+        const { value: opcion } = await Swal.fire({
+          title: "Ingrese el item a editar",
+          input: "text",
+          inputLabel: '1- Nombre 2- Stock 3- Precio',
+          showCancelButton: false,
+          inputValidator: (value) => {
+            if (!value) {
+              return "Por favor ingrese un valor";
+            }
+          },
+        });
+
+        modificarProducto (opcion, producID)
+
+    })(); //cierre del async
 
 }
 
 function modificarProducto(opcion, id){
     let productosLS = JSON.parse(localStorage.getItem('listaProductos'));
     if(opcion == 1){
-        let nombreProducto = prompt("Ingrese el nuevo nombre");
-        let elemento = productosLS.find(elemento => elemento.id == id);
-        elemento.nombre = nombreProducto;
+        (async () => {
 
-    localStorage.setItem('listaProductos', JSON.stringify(productosLS));
+            const { value: nombreProducto } = await Swal.fire({
+              title: "Ingrese el nuevo nombre",
+              input: "text",
+              showCancelButton: false,
+              inputValidator: (value) => {
+                if (!value) {
+                  return "Por favor ingrese un valor";
+                }
+              },
+            });
+            
+            let elemento = productosLS.find(elemento => elemento.id == id);
+            elemento.nombre = nombreProducto;
+            
+            localStorage.setItem('listaProductos', JSON.stringify(productosLS));
 
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'El nombre se modificó correctamente',
-        showConfirmButton: false,
-        timer: 1500
-    })
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'El nombre se modificó correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            setTimeout(() => {
+                location.reload()
+            }, 1600);
+
+        })(); //cierre del async
 
     }else if(opcion == 2){
-            let stockProducto = prompt("Ingrese el nuevo stock");
+            (async () => {
+
+                const { value: stockProducto } = await Swal.fire({
+                  title: "Ingrese el nuevo stock",
+                  input: "text",
+                  showCancelButton: false,
+                  inputValidator: (value) => {
+                    if (!value) {
+                      return "Por favor ingrese un valor";
+                    }
+                  },
+                });
+
             let elemento = productosLS.find(elemento => elemento.id == id);
             elemento.stock = stockProducto;
 
@@ -121,9 +201,26 @@ function modificarProducto(opcion, id){
                 showConfirmButton: false,
                 timer: 1500
         })
+                setTimeout(() => {
+                    location.reload()
+                }, 1600);
+
+            })(); //cierre del async
 
     }else if(opcion == 3){
-            let precioProducto = prompt("Ingrese el nuevo precio");
+            (async () => {
+
+                const { value: precioProducto } = await Swal.fire({
+                  title: "Ingrese el nuevo precio",
+                  input: "text",
+                  showCancelButton: false,
+                  inputValidator: (value) => {
+                    if (!value) {
+                      return "Por favor ingrese un valor";
+                    }
+                  },
+                });
+
             let precioConIva = sumarIva(precioProducto);
             let precioDescuento = descuento(precioProducto);
             
@@ -146,11 +243,15 @@ function modificarProducto(opcion, id){
                 timer: 1500
             })
 
+                setTimeout(() => {
+                    location.reload()
+                }, 1600);
+
+            })(); //cierre del async
+
     }else{
 
     }
 
-    setTimeout(() => {
-        location.reload()
-    }, 1600);
+
 }
