@@ -25,7 +25,7 @@ filas.innerHTML = `
                     <td>$ ${producto.precio}</td>
                     <td>$ ${producto.valorConIva}</td>
                     <td>$ ${producto.valorContado}</td>
-                    <td id="editar${producto.id}"> <a href="#" "><img src="./img/icons/edit.png" alt="editar" width="20px"></a></td>
+                    <td id="editar${producto.id}"> <a href="#" "><img src="./imagenes/icons/edit.png" alt="editar" width="20px"></a></td>
                     <td id="borrar${producto.id}"><button type="button" class="borrar-producto btn-close" aria-label="Close"></button> </td>
                     `;
 

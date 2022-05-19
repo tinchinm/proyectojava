@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tinchinm/proyectojava/issues"
   },
-  "homepage": "https://github.com/tinchinm/proyectojava#readme"
+  "homepage": "https://github.com/tinchinm/proyectojava#readme",
+  "dependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
